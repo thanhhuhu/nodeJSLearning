@@ -1,7 +1,13 @@
 import {Request, Response} from 'express'
-import {handleCreateUser} from "../services/user.service";
-const getHomePage = (req:Request,res:Response) => {
-    return res.render("home.ejs")
+import {getAllUsers, handleCreateUser} from "../services/user.service";
+const getHomePage = async (req:Request,res:Response) => {
+    //get users
+    const users = await getAllUsers ();
+    console.log("check users:",users)
+    // x <- y
+    return res.render("home.ejs", {
+        users: users
+    })
 }
 const getCreateUserPage = (req:Request,res:Response) => {
     return res.render("create-user.ejs")
