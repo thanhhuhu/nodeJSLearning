@@ -78,7 +78,7 @@
 <div>
     <h1>List users: <%= JSON.stringify()%></h1>
     <div>
-        <button href="/create-user" class="btn btn-warning">Create a new user</button>
+        <a  href = "/create-user"   class="btn btn-warning">Create a new user</a>
     </div>
 
     <div>
@@ -101,13 +101,18 @@
                     <td><%= user.email%></td>
                     <td><%= user.address%></td>
                     <td>
-                        <button>Delete</button>
-                        <br>
-                        <button>Change information</button>
+                        <div>
+                            <form action="/handle-delete-user/<%= user.id%>" method="post">
+                                <button type="submit">Delete</button>
+                            </form>
+                                <form action="/handle-view-user/<%= user.id %>" method="get">
+                                <button type="submit">View</button>
+                            </form>
+                        </div>
+
                     </td>
                 </tr>
             <%})%>
-
             </tbody>
         </table>
     </div>
