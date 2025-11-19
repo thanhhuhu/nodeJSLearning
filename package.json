@@ -25,6 +25,7 @@
   "author": "thanh",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "6.3.0",
     "dotenv": "16.4.7",
     "ejs": "3.1.10",
     "express": "5.0.1",

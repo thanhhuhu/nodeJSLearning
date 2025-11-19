@@ -15,6 +15,7 @@ h1 {
     border: none;
     font-weight: 500;
     padding: 8px 16px;
+    float:right;
 }
 
 .btn-warning:hover {
@@ -63,4 +64,8 @@ button:hover {
 .container {
     max-width: 1100px;
     margin: auto;
+}
+.button-create-user{
+    background-color: #6c757d;
+    float:right;
 }
