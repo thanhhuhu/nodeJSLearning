@@ -2,21 +2,26 @@ import { PrismaClient } from "@prisma/client";
 import getConnection from "config/database";
 import {prisma} from "config/client";
 
-const handleCreateUser =
-   async (fullName :string,
-          email :string,
-          address:string
-        ) => {
-        //insert into database
+const handleCreateUser = async (
+    fullName: string,
+    email: string,
+    address: string
+    // có thể thêm username, password, accountType vào tham số sau
+) => {
+    await prisma.user.create({
+        data: {
+            username: email.split('@')[0] || "user_" + Date.now(),  // tạm dùng phần trước @ của email, hoặc random
+            password: "default123",                                 // ← thay bằng hash thật sau (bcrypt)
+            accountType: "USER",                                    // hoặc "SYSTEM", "ADMIN",...
 
-        await prisma.user.create({
-            data:{
-                name:fullName,
-                email:email,
-                address:address,
-            }
-        })
-}
+            name: fullName,   // ← sửa từ name → fullName
+            email: email,
+            address: address,
+
+            // các trường optional khác có thể bỏ qua hoặc để undefined/null
+        }
+    });
+};
 const getAllUsers = async() =>{
    const users = await prisma.user.findMany()
     return users
@@ -35,13 +40,13 @@ const getUserById = async(id:string) =>{
 }
 const updateUserById = async(
     id:string,
-    fullName:string,
+    name:string,
     email:string,
     address:string) => {
     const updateUser = await prisma.user.update({
         where: {id: +id},
         data: {
-            name: fullName,
+            name: name,
             email: email,
             address: address,
         }
